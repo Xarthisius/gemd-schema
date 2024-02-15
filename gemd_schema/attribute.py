@@ -1,11 +1,5 @@
 from .attribute_templates import attribute_template
-from .bounds import (
-    real_bounds,
-    integer_bounds,
-    categorical_bounds,
-    composition_bounds,
-    molecular_structure_bounds,
-)
+from .bounds import one_of_bounds
 from .identifier import identifier
 from .file_link import file_link
 from .value import (
@@ -80,10 +74,6 @@ attribute = {
         "attribute_template": attribute_template,
         "file_link": file_link,
         "identifier": identifier,
-        "real_bounds": real_bounds,
-        "integer_bounds": integer_bounds,
-        "categorical_bounds": categorical_bounds,
-        "composition_bounds": composition_bounds,
-        "molecular_structure_bounds": molecular_structure_bounds,
+        "one_of_bounds": one_of_bounds,
     },
 }

@@ -85,3 +85,15 @@ molecular_structure_bounds = {
     },
     "required": ["type"],
 }
+
+one_of_bounds = {
+    "$schema": "http://json-schema.org/draft-06/schema#",
+    "type": "object",
+    "oneOf": [
+        real_bounds,
+        integer_bounds,
+        categorical_bounds,
+        composition_bounds,
+        molecular_structure_bounds,
+    ],
+}

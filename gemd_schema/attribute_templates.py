@@ -1,22 +1,13 @@
-from .identifier import identifier
 from .bounds import (
-    real_bounds,
-    integer_bounds,
-    categorical_bounds,
-    composition_bounds,
-    molecular_structure_bounds,
+    one_of_bounds,
 )
-
+from .identifier import identifier
 
 attribute_template = {
     "$schema": "http://json-schema.org/draft-06/schema#",
     "definitions": {
         "identifier": identifier,
-        "real_bounds": real_bounds,
-        "integer_bounds": integer_bounds,
-        "categorical_bounds": categorical_bounds,
-        "composition_bounds": composition_bounds,
-        "molecular_structure_bounds": molecular_structure_bounds,
+        "one_of_bounds": one_of_bounds,
     },
     "type": "object",
     "properties": {
@@ -33,15 +24,7 @@ attribute_template = {
             "description": "The name of the template",
             "maxLength": 128,
         },
-        "bounds": {
-            "oneOf": [
-                {"$ref": "#/definitions/real_bounds"},
-                {"$ref": "#/definitions/integer_bounds"},
-                {"$ref": "#/definitions/categorical_bounds"},
-                {"$ref": "#/definitions/composition_bounds"},
-                {"$ref": "#/definitions/molecular_structure_bounds"},
-            ],
-        },
+        "bounds": {"$ref": "#/definitions/one_of_bounds"},
         "uids": {
             "$ref": "#/definitions/identifier",
         },
@@ -57,4 +40,58 @@ attribute_template = {
         },
     },
     "required": ["name", "type", "bounds"],
+}
+
+property_template = {
+    "$schema": "http://json-schema.org/draft-06/schema#",
+    "definitions": {
+        "identifier": identifier,
+        "one_of_bounds": one_of_bounds,
+    },
+    "allOf": [
+        attribute_template,
+        {
+            "properties": {
+                "type": {
+                    "const": "property_template",
+                },
+            },
+        },
+    ],
+}
+
+condition_template = {
+    "$schema": "http://json-schema.org/draft-06/schema#",
+    "definitions": {
+        "identifier": identifier,
+        "one_of_bounds": one_of_bounds,
+    },
+    "allOf": [
+        attribute_template,
+        {
+            "properties": {
+                "type": {
+                    "const": "condition_template",
+                },
+            },
+        },
+    ],
+}
+
+parameter_template = {
+    "$schema": "http://json-schema.org/draft-06/schema#",
+    "definitions": {
+        "identifier": identifier,
+        "one_of_bounds": one_of_bounds,
+    },
+    "allOf": [
+        attribute_template,
+        {
+            "properties": {
+                "type": {
+                    "const": "parameter_template",
+                },
+            },
+        },
+    ],
 }

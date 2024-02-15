@@ -1,4 +1,4 @@
-from gemd_schema.attribute_templates import attribute_template
+from gemd_schema.attribute_templates import attribute_template, property_template
 import jsonschema
 
 
@@ -42,4 +42,4 @@ def test_attribute_template():
             "categories": ["red", "orange", "yellow", "green", "blue", "violet"],
         },
     }
-    jsonschema.validate(data, attribute_template)
+    jsonschema.validate(data, property_template)
