@@ -1,4 +1,6 @@
 from .attribute import attribute
+from .attribute_templates import attribute_template
+from .identifier import link
 from .value import (
     real_value,
     integer_value,
@@ -55,6 +57,8 @@ property_and_conditions = {
         "categorical": categorical,
         "composition": composition,
         "molecular_structure": molecular_structure,
-        "attribute": attribute
+        "attribute": attribute,
+        "attribute_template": attribute_template,
+        "link": link,
     },
 }

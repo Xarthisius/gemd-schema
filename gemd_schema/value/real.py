@@ -52,7 +52,7 @@ nominal_value = {
             "description": "A string describing the units",
         },
     },
-    "required": ["type", "nominal", "units"],
+    "required": ["type", "nominal"],
 }
 
 real_value = {
