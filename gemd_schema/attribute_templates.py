@@ -1,13 +1,15 @@
 from .bounds import (
     one_of_bounds,
 )
-from .identifier import identifier
+from .identifier import identifier, link
+from .value import real_value
 
 attribute_template = {
     "$schema": "http://json-schema.org/draft-06/schema#",
     "definitions": {
         "identifier": identifier,
         "one_of_bounds": one_of_bounds,
+        "real_value": real_value,
     },
     "type": "object",
     "properties": {
@@ -48,15 +50,20 @@ property_template = {
         "identifier": identifier,
         "one_of_bounds": one_of_bounds,
     },
-    "allOf": [
-        attribute_template,
+    "oneOf": [
         {
-            "properties": {
-                "type": {
-                    "const": "property_template",
+            "allOf": [
+                attribute_template,
+                {
+                    "properties": {
+                        "type": {
+                            "const": "property_template",
+                        },
+                    },
                 },
-            },
+            ]
         },
+        link,
     ],
 }
 
@@ -66,15 +73,20 @@ condition_template = {
         "identifier": identifier,
         "one_of_bounds": one_of_bounds,
     },
-    "allOf": [
-        attribute_template,
+    "oneOf": [
         {
-            "properties": {
-                "type": {
-                    "const": "condition_template",
+            "allOf": [
+                attribute_template,
+                {
+                    "properties": {
+                        "type": {
+                            "const": "condition_template",
+                        },
+                    },
                 },
-            },
+            ]
         },
+        link,
     ],
 }
 
@@ -83,15 +95,21 @@ parameter_template = {
     "definitions": {
         "identifier": identifier,
         "one_of_bounds": one_of_bounds,
+        "real_value": real_value,
     },
-    "allOf": [
-        attribute_template,
+    "oneOf": [
         {
-            "properties": {
-                "type": {
-                    "const": "parameter_template",
+            "allOf": [
+                attribute_template,
+                {
+                    "properties": {
+                        "type": {
+                            "const": "parameter_template",
+                        },
+                    },
                 },
-            },
+            ],
         },
+        link,
     ],
 }

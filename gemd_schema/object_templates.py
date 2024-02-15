@@ -1,4 +1,4 @@
-from .identifier import identifier
+from .identifier import identifier, link
 from .bounds import one_of_bounds
 from .attribute_templates import (
     condition_template,
@@ -6,7 +6,7 @@ from .attribute_templates import (
     property_template,
 )
 
-process_template = {
+_process_template = {
     "$schema": "http://json-schema.org/draft-06/schema#",
     "type": "object",
     "properties": {
@@ -76,15 +76,9 @@ process_template = {
         },
     },
     "required": ["name", "type"],
-    "definitions": {
-        "identifier": identifier,
-        "one_of_bounds": one_of_bounds,
-        "condition_template": condition_template,
-        "parameter_template": parameter_template,
-    },
 }
 
-material_template = {
+_material_template = {
     "$schema": "http://json-schema.org/draft-06/schema#",
     "type": "object",
     "properties": {
@@ -127,14 +121,9 @@ material_template = {
         },
     },
     "required": ["name", "type"],
-    "definitions": {
-        "identifier": identifier,
-        "one_of_bounds": one_of_bounds,
-        "property_template": property_template,
-    },
 }
 
-measurement_template = {
+_measurement_template = {
     "$schema": "http://json-schema.org/draft-06/schema#",
     "type": "object",
     "properties": {
@@ -207,6 +196,37 @@ measurement_template = {
         },
     },
     "required": ["name", "type"],
+}
+
+process_template = {
+    "$schema": "http://json-schema.org/draft-06/schema#",
+    "definitions": {
+        "identifier": identifier,
+        "one_of_bounds": one_of_bounds,
+        "condition_template": condition_template,
+        "parameter_template": parameter_template,
+    },
+    "oneOf": [
+        _process_template,
+        link,
+    ],
+}
+
+material_template = {
+    "$schema": "http://json-schema.org/draft-06/schema#",
+    "definitions": {
+        "identifier": identifier,
+        "one_of_bounds": one_of_bounds,
+        "property_template": property_template,
+    },
+    "oneOf": [
+        _material_template,
+        link,
+    ],
+}
+
+measurement_template = {
+    "$schema": "http://json-schema.org/draft-06/schema#",
     "definitions": {
         "identifier": identifier,
         "one_of_bounds": one_of_bounds,
@@ -214,4 +234,8 @@ measurement_template = {
         "parameter_template": parameter_template,
         "property_template": property_template,
     },
+    "oneOf": [
+        _measurement_template,
+        link,
+    ],
 }

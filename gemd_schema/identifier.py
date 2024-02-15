@@ -17,3 +17,13 @@ identifier = {
     "minProperties": 1,
     "maxProperties": 8,
 }
+
+link = {
+    "type": "object",
+    "properties": {
+        "type": {"type": "string", "const": "link_by_uid"},
+        "scope": {"type": "string"},
+        "id": {"type": "string"},
+    },
+    "required": ["type", "scope", "id"],
+}

@@ -1,6 +1,11 @@
-from .attribute_templates import attribute_template
+from .attribute_templates import (
+    attribute_template,
+    parameter_template,
+    condition_template,
+    property_template,
+)
 from .bounds import one_of_bounds
-from .identifier import identifier
+from .identifier import identifier, link
 from .file_link import file_link
 from .value import (
     real_value,
@@ -10,6 +15,21 @@ from .value import (
     molecular_structure,
 )
 
+definitions = {
+    "real_value": real_value,
+    "integer_value": integer_value,
+    "categorical": categorical,
+    "composition": composition,
+    "molecular_structure": molecular_structure,
+    "attribute_template": attribute_template,
+    "parameter_template": parameter_template,
+    "condition_template": condition_template,
+    "property_template": property_template,
+    "file_link": file_link,
+    "identifier": identifier,
+    "one_of_bounds": one_of_bounds,
+    "link": link,
+}
 
 attribute = {
     "$schema": "http://json-schema.org/draft-06/schema#",
@@ -57,7 +77,10 @@ attribute = {
             "description": "The origin of the attribute",
         },
         "template": {
-            "$ref": "#/definitions/attribute_template",
+            "oneOf": [
+                {"$ref": "#/definitions/attribute_template"},
+                {"$ref": "#/definitions/link"},
+            ],
         },
         "file_links": {
             "type": "array",
@@ -65,15 +88,53 @@ attribute = {
             "description": "A list of file links associated with this attribute",
         },
     },
-    "definitions": {
-        "real_value": real_value,
-        "integer_value": integer_value,
-        "categorical": categorical,
-        "composition": composition,
-        "molecular_structure": molecular_structure,
-        "attribute_template": attribute_template,
-        "file_link": file_link,
-        "identifier": identifier,
-        "one_of_bounds": one_of_bounds,
-    },
+    "definitions": definitions,
+}
+
+parameter = {
+    "$schema": "http://json-schema.org/draft-06/schema#",
+    "definitions": definitions,
+    "allOf": [
+        attribute,
+        {
+            "properties": {
+                "type": {
+                    "const": "parameter",
+                },
+                "template": {"$ref": "#/definitions/parameter_template"},
+            },
+        },
+    ],
+}
+
+condition = {
+    "$schema": "http://json-schema.org/draft-06/schema#",
+    "definitions": definitions,
+    "allOf": [
+        attribute,
+        {
+            "properties": {
+                "type": {
+                    "const": "condition",
+                },
+                "template": {"$ref": "#/definitions/condition_template"},
+            },
+        },
+    ],
+}
+
+property = {
+    "$schema": "http://json-schema.org/draft-06/schema#",
+    "definitions": definitions,
+    "allOf": [
+        attribute,
+        {
+            "properties": {
+                "type": {
+                    "const": "property",
+                },
+                "template": {"$ref": "#/definitions/property_template"},
+            },
+        },
+    ],
 }
