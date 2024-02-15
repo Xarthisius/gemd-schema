@@ -13,7 +13,7 @@ identifier = {
         "type": "string",
         "maxLength": 512,
     },
-    "required": ["id"],
+    "propertyNames": {"not": {"pattern": "::"}},
     "minProperties": 1,
     "maxProperties": 8,
 }
