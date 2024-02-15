@@ -123,7 +123,7 @@ condition = {
     ],
 }
 
-property = {
+property_ = {
     "$schema": "http://json-schema.org/draft-06/schema#",
     "definitions": definitions,
     "allOf": [

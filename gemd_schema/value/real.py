@@ -16,7 +16,7 @@ normal_real_value = {
             "description": "A string describing the units",
         },
     },
-    "required": ["type", "mean", "std", "units"],
+    "required": ["type", "mean", "std"],
 }
 
 uniform_real_value = {
@@ -39,7 +39,7 @@ uniform_real_value = {
     "required": ["type", "lower_bound", "upper_bound", "units"],
 }
 
-nominal_value = {
+nominal_real_value = {
     "type": "object",
     "properties": {
         "type": {"const": "nominal_real"},
@@ -59,6 +59,6 @@ real_value = {
     "oneOf": [
         normal_real_value,
         uniform_real_value,
-        nominal_value,
+        nominal_real_value,
     ],
 }

@@ -6,12 +6,21 @@ from gemd_schema.value import (
     molecular_structure,
 )
 from gemd_schema.bounds import one_of_bounds
-from gemd_schema.object_templates import process_template, material_template, measurement_template
+from gemd_schema.object_templates import (
+    process_template,
+    material_template,
+    measurement_template,
+)
 from gemd_schema.file_link import file_link
 from gemd_schema.property_and_conditions import property_and_conditions
 from gemd_schema.identifier import identifier, link
 from gemd_schema.attribute import condition, parameter
-from gemd_schema.attribute_templates import attribute_template, parameter_template, condition_template
+from gemd_schema.attribute_templates import (
+    attribute_template,
+    parameter_template,
+    condition_template,
+    property_template,
+)
 
 
 _process_spec = {
@@ -104,7 +113,10 @@ _material_spec = {
             "items": {"$ref": "#/definitions/property_and_conditions"},
         },
         "process": {
-            "oneOf": [{"$ref": "#/definitions/process_spec"}, {"$ref": "#/definitions/link"}],
+            "oneOf": [
+                {"$ref": "#/definitions/process_spec"},
+                {"$ref": "#/definitions/link"},
+            ],
         },
     },
     "required": ["name", "type", "process"],
@@ -134,8 +146,18 @@ _ingredient_spec = {
             ),
             "items": {"type": "string", "maxLength": 256},
         },
-        "material": {"oneOf": [{"$ref": "#/definitions/material_spec"}, {"$ref": "#/definitions/link"}]},
-        "process": {"oneOf": [{"$ref": "#/definitions/process_spec"}, {"$ref": "#/definitions/link"}]},
+        "material": {
+            "oneOf": [
+                {"$ref": "#/definitions/material_spec"},
+                {"$ref": "#/definitions/link"},
+            ]
+        },
+        "process": {
+            "oneOf": [
+                {"$ref": "#/definitions/process_spec"},
+                {"$ref": "#/definitions/link"},
+            ]
+        },
         "notes": {
             "type": "string",
             "description": "Some free-form notes about the Spec",
@@ -303,6 +325,7 @@ measurement_spec["definitions"] = {
     "molecular_structure": molecular_structure,
     "attribute_template": attribute_template,
     "parameter_template": parameter_template,
+    "property_template": property_template,
     "condition_template": condition_template,
     "file_link": file_link,
 }
